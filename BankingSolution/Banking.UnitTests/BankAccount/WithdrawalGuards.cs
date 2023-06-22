@@ -1,4 +1,6 @@
 ﻿
+using Banking.Domain;
+
 namespace Banking.UnitTests.BankAccount;
 
 public class WithdrawalGuards
@@ -7,15 +9,10 @@ public class WithdrawalGuards
     public void OverdraftNotAllowed()
     {
         var account = new Account();
-        var openingBalance = account.GetBalance();
 
 
 
-        account.Withdraw(openingBalance + .01M);
-
-
-
-        Assert.Equal(openingBalance, account.GetBalance());
+        Assert.Throws<OverdraftException>(() => account.Withdraw(account.GetBalance() + .01M));
     }
 
 }
