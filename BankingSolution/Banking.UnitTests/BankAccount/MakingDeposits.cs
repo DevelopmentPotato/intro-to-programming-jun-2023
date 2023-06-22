@@ -9,6 +9,7 @@ public class MakingDeposits
         decimal openingBalance = account.GetBalance();
         decimal amountToDeposit = 100M;
 
+
         account.Deposit(amountToDeposit);
 
         Assert.Equal(openingBalance+amountToDeposit, account.GetBalance());
