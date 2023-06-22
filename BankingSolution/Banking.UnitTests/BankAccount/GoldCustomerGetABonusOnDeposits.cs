@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Banking.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,20 @@ namespace Banking.UnitTests.BankAccount;
 
 public class GoldCustomersGetABonusOnDeposits
 {
-    [Fact(Skip = "Working on it")]
+    [Fact]
     public void BonusIsApplied()
     {
+        var openingBalance = account.GetBalance();
+        var amountToDeposit = 100M;
+        var expectedNewBalance = openingBalance + amountToDeposit + 10M;
 
+
+
+        account.Deposit(amountToDeposit);
+
+
+
+        Assert.Equal(expectedNewBalance, account.GetBalance());
 
 
     }
