@@ -11,9 +11,10 @@ public class GreetingTests
     [InlineData("Hello, Winton!", "Winton")]
     public void SingleName(string solution, params string[] names)
     {
-        var greeter = new GreetingMaker();
 
-        string greeting = greeter.Greet("Winton");
+        var greeter = new GreetingMaker(new BadNames());
+
+        string greeting = greeter.Greet(names);
 
         Assert.Equal(solution, greeting);
     }
@@ -21,7 +22,7 @@ public class GreetingTests
     [Fact]
     public void allowNull()
     {
-        var greeter = new GreetingMaker();
+        var greeter = new GreetingMaker(new BadNames());
 
         string greeting = greeter.Greet(null);
 
@@ -32,7 +33,7 @@ public class GreetingTests
     [InlineData("HELLO, WINTON!", "WINTON")]
     public void matchEnthusiasm(string solution, params string[] names)
     {
-        var greeter = new GreetingMaker();
+        var greeter = new GreetingMaker(new BadNames());
 
         string greeting = greeter.Greet(names);
 
@@ -44,7 +45,7 @@ public class GreetingTests
     [InlineData("Hello, Winton, Mercy, and Ana!", "Winton", "Mercy", "Ana")]
     public void allowMultipleNames(string solution, params string[] names)
     {
-        var greeter = new GreetingMaker();
+        var greeter = new GreetingMaker(new BadNames());
 
         string greeting = greeter.Greet(names);
 
@@ -56,7 +57,7 @@ public class GreetingTests
     [InlineData("Hello, Bob, Jim, AND SUE!", "Bob", "SUE", "Jim")]
     public void mixedShouting(string solution, params string[] names)
     {
-        var greeter = new GreetingMaker();
+        var greeter = new GreetingMaker(new BadNames());
 
         string greeting = greeter.Greet(names);
 
@@ -67,7 +68,18 @@ public class GreetingTests
     [InlineData("Hello, Bob, Mike, and Karl!", "Bob", "Mike, Karl")]
     public void SplitCommaSeperatedNames(string solution, params string[] names)
     {
-        var greeter = new GreetingMaker();
+        var greeter = new GreetingMaker(new BadNames());
+
+        string greeting = greeter.Greet(names);
+
+        Assert.Equal(solution, greeting);
+    }
+
+    [Theory]
+    [InlineData("Hello, Sam, Carl, J****n, Bill, and B***y!", "Sam", "Carl", "Jayden", "Bill", "Buffy")]
+    public void ChangeBadWords(string solution, params string[] names)
+    {
+        var greeter = new GreetingMaker(new BadNames("Jayden", "Buffy"));
 
         string greeting = greeter.Greet(names);
 

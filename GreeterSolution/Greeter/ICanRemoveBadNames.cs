@@ -2,6 +2,6 @@
 {
     public interface ICanRemoveBadNames
     {
-        List<string> excludeBadNames(List<string> names);
+        List<string> editBadNames(params string[] names);
     }
 }

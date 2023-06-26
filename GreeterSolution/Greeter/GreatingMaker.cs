@@ -33,6 +33,7 @@
                 }
             }
 
+            
 
             string greet = "Hello,";
             if(lowerNames.Count == 0)
@@ -40,13 +41,13 @@
                 greet = greet.ToUpper();
             }
 
-            lowerNames.AddRange(upperNames);//lower names is now an ordered list
+            lowerNames.AddRange(upperNames);
 
-            
+            List<string> censuredList = _badNames.editBadNames(lowerNames.ToArray());
 
-            for (int i=0;i<lowerNames.Count;i++)
+            for (int i=0;i< censuredList.Count;i++)
             {
-                if(i == lowerNames.Count - 1 && i!=0)
+                if(i == censuredList.Count - 1 && i!=0)
                 {
                     if(upperNames.Count > 0)
                     {
@@ -56,18 +57,16 @@
                     {
                         greet += " and";
                     }
-                    
                 }
 
-                if(i == lowerNames.Count - 1)
+                if(i == censuredList.Count - 1)
                 {
-                    greet += " " + lowerNames[i] + "!";
+                    greet += " " + censuredList[i] + "!";
                 }
                 else
                 {
-                    greet += " " + lowerNames[i] + ",";
+                    greet += " " + censuredList[i] + ",";
                 }
-                
             }
 
             if (names.Length == 1 && names[0] == names[0].ToUpper())
@@ -91,7 +90,6 @@
                     {
                         splitNames.Add(tempName);
                     }
-
                 }
                 else
                 {

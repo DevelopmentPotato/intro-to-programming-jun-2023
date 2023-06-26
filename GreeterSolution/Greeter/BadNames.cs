@@ -1,4 +1,6 @@
-﻿namespace Greeter;
+﻿using System.Linq;
+
+namespace Greeter;
 
 public class BadNames : ICanRemoveBadNames
 {
@@ -9,19 +11,29 @@ public class BadNames : ICanRemoveBadNames
         _badNames = badNames.ToList();
     }
 
-    public List<string> excludeBadNames(List<string> names)
+    public List<string> editBadNames(params string[] names)
     {
-        foreach(string  badName in names.ToList().Intersect(_badNames))
+
+        for (int i = 0; i < names.Length; i++)
         {
-            string sign = "*"
-            string placeholder = "";
-            for(int i=0;i<badName.Length-2;i++)
+            
+            if (_badNames.Any(n => n == names[i]))
             {
-                placeholder += sign;
+                string sign = "*";
+                string placeholder = "";
+                for (int j = 0; j < names[i].Length - 2; j++)
+                {
+                    placeholder += sign;
+                }
+
+                string ans = names[i][0].ToString();
+                ans += placeholder;
+                int len = names[i].Length;
+                ans += names[i][names[i].Length -1];
+                names[i] = ans;
             }
-            badName = badName.Substring(0,1) + placeholder + badName.Substring(badName.Length-1,badName.Length);
         }
-        return names.ToList().Except(_badNames).ToList();
+        return names.ToList();
     }
 
 }
